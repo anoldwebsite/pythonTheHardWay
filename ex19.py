@@ -180,3 +180,37 @@ num_happy_tweet, num_sad_tweet, num_neutral_tweet = classify_tweets(tweets, happ
 print(f"Number of happy tweets: {num_happy_tweet}")
 print(f"Number of sad tweets: {num_sad_tweet}")
 print(f"Number of neutral tweets: {num_neutral_tweet}")
+print("*****************************************************")
+
+
+def classify_tweets2(tweets_array, happy_array, sad_array):
+    num_happy = 0
+    num_sad = 0
+    num_neutral = 0
+    tweets_decided = 0
+    iteration_num = 0
+    for tweet in tweets_array:
+        iteration_num += 1
+        t = tweet.translate(str.maketrans('', '', string.punctuation))  # tweet without punctuation.
+        words = t.split(" ")
+        for word in words:
+            if word in happy_array:
+                num_happy += 1
+                tweets_decided += 1
+                break
+            if word in sad_array:
+                num_sad += 1
+                tweets_decided += 1
+                break
+        if iteration_num != tweets_decided:
+            num_neutral += 1
+            tweets_decided += 1
+
+    return num_happy, num_sad, num_neutral
+
+
+num_happy_tweet, num_sad_tweet, num_neutral_tweet = classify_tweets2(tweets, happy_words, sad_words)
+
+print(f"Number of happy tweets: {num_happy_tweet}")
+print(f"Number of sad tweets: {num_sad_tweet}")
+print(f"Number of neutral tweets: {num_neutral_tweet}")
