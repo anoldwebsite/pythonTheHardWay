@@ -32,7 +32,6 @@ print(isinstance(65, float))  # False
 print(isinstance(65, int))  # True
 print("****************************************************")
 
-
 x = Decimal(2.34)
 print(type(x))
 print(x * 2)
@@ -123,7 +122,6 @@ for tweet in tweets:
 print(number_of_neutral_tweets)
 """
 
-
 print("****************************************************")
 num_happy_tweet = 0
 num_sad_tweet = 0
@@ -152,3 +150,33 @@ print(f"Number of happy tweets: {num_happy_tweet}")
 print(f"Number of sad tweets: {num_sad_tweet}")
 print(f"Number of neutral tweets: {num_neutral_tweet}")
 
+print("********************************************************")
+
+
+def classify_tweets(tweets_array, happy_array, sad_array):
+    happy_tweets = []
+    sad_tweets = []
+    neutral_tweets = []
+
+    for tweet in tweets_array:
+        t = tweet.translate(str.maketrans('', '', string.punctuation))  # tweet without punctuation.
+        words = t.split(" ")
+        for word in words:
+            if word in happy_array:
+                happy_tweets.append(tweet)
+                break
+            if word in sad_array:
+                sad_tweets.append(tweet)
+                break
+
+        if tweet not in happy_tweets and tweet not in sad_tweets:
+            neutral_tweets.append(tweet)
+
+    return len(happy_tweets), len(sad_tweets), len(neutral_tweets)
+
+
+num_happy_tweet, num_sad_tweet, num_neutral_tweet = classify_tweets(tweets, happy_words, sad_words)
+
+print(f"Number of happy tweets: {num_happy_tweet}")
+print(f"Number of sad tweets: {num_sad_tweet}")
+print(f"Number of neutral tweets: {num_neutral_tweet}")
